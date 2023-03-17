@@ -1,0 +1,1 @@
+REGION = 'us-east-2'
