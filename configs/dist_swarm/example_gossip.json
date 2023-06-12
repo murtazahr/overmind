@@ -1,0 +1,52 @@
+{
+    "dataset": "mnist",
+    "model": "2nn",
+    "tag": "ovm_gossip",
+    "swarm_init_group": "levy_100_mnist",
+    "cluster_config": "../configs/clusters/ovm-internal-2.json",
+    "worker_namespace": "ds-deployment",
+    "rds_config": {
+        "rds_endpoint": "none",
+        "rds_user": "none",
+        "rds_password": "none",
+        "rds_dbname": "none"
+    },
+    "learning_scenario": "gossip",
+    "device_config": {
+        "device_strategy": "gossip",
+        "pretrained_model": "none",
+        "model_size_in_bits": 6224000,
+        "encounter_config": {
+            "encounter_data_file": "encounter_data/levy_clients_100_epi_10_dur_100_step_02.pickle",
+            "computation_time": 0.13,
+            "communication_rate": 16000000,
+            "invoked_functions": [
+                {"func_name": "#train_self", "params": {}},
+                {"func_name": "update_model", "params": {}},
+                {"func_name": "!evaluate"}
+            ]
+        },
+        "train_config": {
+            "__comment__": "formerly called hyperparams",
+            "batch-size": 50,
+            "orig-lr": 0.1,
+            "max_rounds": 3,
+            "evaluation-metrics": "loss-and-accuracy",
+            "kappa": 7,
+            "offset": 0.96,
+            "apply-rate": 5,
+            "test-data-per-label": 800,
+            "similarity-threshold": 0.5,
+            "low-similarity-threshold": 0.5,
+            "num-rounds": 250,
+            "time-per-round": 100,
+            "decay": 0.998,
+            "optimizer": "adam",
+            "optimizer-params": {
+                "learning_rate": 0.001
+            }
+        },
+        "__comment__": "This is an examplar json that is sent to simulate_device_services"
+    },
+    "__comment__": "This is an examplar json that is used by controller"
+}
