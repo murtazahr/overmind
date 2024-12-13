@@ -2,45 +2,49 @@ apiVersion: v1
 kind: Service
 metadata:
   name: ds-deployment-0
+  namespace: ds-deployment  # Added namespace
 spec:
-  type: NodePort 
+  type: NodePort
   selector:
     statefulset.kubernetes.io/pod-name: ds-deployment-0
   ports:
-  - port: 50051
+    - port: 50051
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ds-deployment-1
+  namespace: ds-deployment
 spec:
-  type: NodePort 
+  type: NodePort
   selector:
     statefulset.kubernetes.io/pod-name: ds-deployment-1
   ports:
-  - port: 50051
+    - port: 50051
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ds-deployment-2
+  namespace: ds-deployment
 spec:
-  type: NodePort 
+  type: NodePort
   selector:
     statefulset.kubernetes.io/pod-name: ds-deployment-2
   ports:
-  - port: 50051
+    - port: 50051
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: ds-deployment-3
+  namespace: ds-deployment
 spec:
-  type: NodePort 
+  type: NodePort
   selector:
     statefulset.kubernetes.io/pod-name: ds-deployment-3
   ports:
-  - port: 50051
+    - port: 50051
 ---
 apiVersion: apps/v1
 kind: StatefulSet
@@ -65,18 +69,15 @@ spec:
         nodeAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             nodeSelectorTerms:
-            - matchExpressions:
-              - key: beta.kubernetes.io/arch
-                operator: In
-                values:
-                - amd64
-                - arm64
+              - matchExpressions:
+                  - key: kubernetes.io/arch
+                    operator: In
+                    values:
+                      - amd64
+                      - arm64
       containers:
-      - name: ds-device
-        image: tensorflow/tensorflow
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 50051
-
-#      imagePullSecrets:
-#      - name: # your image pull secrets here
+        - name: ds-device
+          image: tensorflow/tensorflow
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 50051
