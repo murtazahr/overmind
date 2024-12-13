@@ -73,10 +73,10 @@ spec:
                 - arm64
       containers:
       - name: ds-device
-        image: # your image here
+        image: tensorflow/tensorflow
         imagePullPolicy: Always
         ports:
         - containerPort: 50051
 
-      imagePullSecrets:
-      - name: # your image pull secrets here
+#      imagePullSecrets:
+#      - name: # your image pull secrets here
